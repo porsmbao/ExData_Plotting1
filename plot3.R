@@ -1,4 +1,4 @@
-#plot 2
+#plot 3
 
 setwd("C:/Users/Bao Xinwei/Desktop/R/exploratory")
 library(dplyr)
@@ -9,9 +9,16 @@ dt <- mutate(dt, Date = as.Date(Date, format = "%d/%m/%Y"))
 dt1 <- filter(dt, Date == as.Date("2007-02-01") | Date == as.Date("2007-02-02"))
 dt1 <- mutate(dt1, Global_active_power = as.numeric(Global_active_power))
 plot(x = dt1$Date_Time, 
-     y = dt1$Global_active_power, 
+     y = dt1$Sub_metering_1, 
      type = "l", 
-     ylab = "Global Active Power(kilowatts)", 
+     ylab = "Energy sub metering", 
      xlab = "")
-dev.copy(png, file = "plot2.png", width = 480, height = 480)
+lines(x=dt1$Date_Time, y=dt1$Sub_metering_2,type="l",col="red")
+lines(x=dt1$Date_Time, y=dt1$Sub_metering_3,type="l",col="blue")
+legend("topright", 
+       legend = c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), 
+       col = c("black","red","blue"),
+       lty = 1,
+       cex=0.7)
+dev.copy(png, file = "plot3.png", width = 480, height = 480)
 dev.off()
